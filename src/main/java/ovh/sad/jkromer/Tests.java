@@ -5,6 +5,9 @@ import ovh.sad.jkromer.http.addresses.*;
 import ovh.sad.jkromer.http.misc.GetMotd;
 import ovh.sad.jkromer.http.misc.GetSupply;
 import ovh.sad.jkromer.http.names.*;
+import ovh.sad.jkromer.http.transactions.GetTransaction;
+import ovh.sad.jkromer.http.transactions.ListLatestTransactions;
+import ovh.sad.jkromer.http.transactions.ListTransactions;
 
 public class Tests {
 
@@ -77,6 +80,17 @@ public class Tests {
         }
     }
 
+    public static class Internal {
+        static void CreateWallet() {
+            // I'm not hardcoding KromerKey's.
+            System.out.println("A test for CreateWallet is not implemented.");
+        }
+        static void GiveMoney() {
+            // I'm not hardcoding KromerKey's.
+            System.out.println("A test for GiveMoney is not implemented.");
+        }
+    }
+
     public static class Names {
         static void GetName() {
             Result<GetName.GetNameBody> result = GetName.execute("cock").join();
@@ -124,5 +138,51 @@ public class Tests {
                 System.out.println("Error: " + error + " param: " + error.parameter());
             }
         }
+
+        static void RegisterName() {
+            // not hardcoding a privatekey
+            System.out.println("A test for RegisterName is not implemented.");
+        }
+
+        static void UpdateName() {
+            // not hardcoding a privatekey
+            System.out.println("A test for UpdateName is not implemented.");
+        }
     }
+
+    public static class Transactions {
+        static void ListTransaction() {
+            var result = ListTransactions.execute().join();
+            if (result instanceof Result.Ok(ListTransactions.ListTransactionsBody value)) {
+                System.out.println("From: " + value.transactions.getFirst().from
+                        + ", to: " + value.transactions.getFirst().to + ", of " + value.transactions.getFirst().value +"KRO! Wow.");
+            } else if (result instanceof Result.Err(Errors.ErrorResponse error)) {
+                System.out.println("Error: " + error + " param: " + error.parameter());
+            }
+        }
+        static void MakeTransaction() {
+            // not hardcoding a privatekey
+            System.out.println("A test for MakeTransaction is not implemented.");
+        }
+
+        static void ListLatestTransactions() {
+            var result = ListLatestTransactions.execute().join();
+            if (result instanceof Result.Ok(ListLatestTransactions.ListLatestTransactionsBody value)) {
+                System.out.println("From: " + value.transactions.getFirst().from
+                        + ", to: " + value.transactions.getFirst().to + ", of " + value.transactions.getFirst().value +"KRO! Wow. ID: " + value.transactions.getFirst().id);
+            } else if (result instanceof Result.Err(Errors.ErrorResponse error)) {
+                System.out.println("Error: " + error + " param: " + error.parameter());
+            }
+        }
+        static void GetTransaction() {
+            var result = GetTransaction.execute("6").join();
+            if (result instanceof Result.Ok(GetTransaction.GetTransactionBody value)) {
+                System.out.println("From: " + value.transaction.from
+                        + ", to: " + value.transaction.to + ", of " + value.transaction.value +"KRO! Wow. ID: " + value.transaction.id);
+            } else if (result instanceof Result.Err(Errors.ErrorResponse error)) {
+                System.out.println("Error: " + error + " param: " + error.parameter());
+            }
+        }
+    }
+
 }

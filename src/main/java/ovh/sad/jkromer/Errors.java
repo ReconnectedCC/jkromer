@@ -8,7 +8,7 @@ public enum Errors {
     INSUFFICIENT_FUNDS("insufficient_funds"),
     NOT_NAME_OWNER("not_name_owner"),
     NAME_NOT_FOUND("name_not_found"),
-    INTERNAL_PROBLEM("five_oh_two", true);
+    INTERNAL_PROBLEM("internal_error", true);
 
     private final String errorCode;
     private final boolean acceptsParameter;
