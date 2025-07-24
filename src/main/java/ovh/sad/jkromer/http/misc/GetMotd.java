@@ -5,6 +5,7 @@ import ovh.sad.jkromer.Errors;
 import ovh.sad.jkromer.http.HttpEndpoint;
 import ovh.sad.jkromer.http.ResponseBodyGeneric;
 import ovh.sad.jkromer.http.Result;
+import ovh.sad.jkromer.jKromer;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
@@ -65,7 +66,7 @@ public class GetMotd extends HttpEndpoint {
     public static CompletableFuture<Result<GetMotdBody>> execute() {
         try {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(endpoint + "/motd"))
+                    .uri(URI.create(jKromer.endpoint + "/motd"))
                     .GET()
                     .build();
 

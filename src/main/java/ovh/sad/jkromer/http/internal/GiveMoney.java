@@ -3,6 +3,7 @@ package ovh.sad.jkromer.http.internal;
 import ovh.sad.jkromer.Errors;
 import ovh.sad.jkromer.http.HttpEndpoint;
 import ovh.sad.jkromer.http.Result;
+import ovh.sad.jkromer.jKromer;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
@@ -37,7 +38,7 @@ public class GiveMoney extends HttpEndpoint {
             String json = gson.toJson(new GiveMoneyRequest(amount, address));
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(endpoint_raw + "/api/_internal/wallet/give-money"))
+                    .uri(URI.create(jKromer.endpoint_raw + "/api/_internal/wallet/give-money"))
                     .header("Content-Type", "application/json")
                     .header("Kromer-Key", kromerKey)
                     .POST(HttpRequest.BodyPublishers.ofString(json))

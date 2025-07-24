@@ -4,6 +4,7 @@ import ovh.sad.jkromer.Errors;
 import ovh.sad.jkromer.http.HttpEndpoint;
 import ovh.sad.jkromer.http.ResponseBodyGeneric;
 import ovh.sad.jkromer.http.Result;
+import ovh.sad.jkromer.jKromer;
 import ovh.sad.jkromer.models.Address;
 import ovh.sad.jkromer.models.Transaction;
 
@@ -19,7 +20,7 @@ public class GetTransaction extends HttpEndpoint {
 
     public static CompletableFuture<Result<GetTransactionBody>> execute(String id) {
         try {
-            String url = endpoint + "/transactions/" + id;
+            String url = jKromer.endpoint + "/transactions/" + id;
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))

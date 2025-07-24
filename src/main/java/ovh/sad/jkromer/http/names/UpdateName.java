@@ -4,6 +4,7 @@ import ovh.sad.jkromer.Errors;
 import ovh.sad.jkromer.http.HttpEndpoint;
 import ovh.sad.jkromer.http.ResponseBodyGeneric;
 import ovh.sad.jkromer.http.Result;
+import ovh.sad.jkromer.jKromer;
 import ovh.sad.jkromer.models.Name;
 
 import java.net.URI;
@@ -32,7 +33,7 @@ public class UpdateName extends HttpEndpoint {
     public static CompletableFuture<Result<UpdateNameResponse>> execute(String name, String data, String privatekey) {
         try {
             String encodedName = URLEncoder.encode(name, StandardCharsets.UTF_8);
-            String url = endpoint + "/names/" + encodedName + "/update";
+            String url = jKromer.endpoint + "/names/" + encodedName + "/update";
 
             String json = gson.toJson(new UpdateNameRequest(data, privatekey));
 

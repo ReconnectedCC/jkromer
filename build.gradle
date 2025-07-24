@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'ovh.sad'
-version = '0.3'
+version = '0.4'
 
 repositories {
     mavenCentral()
@@ -30,7 +30,7 @@ publishing {
         maven(MavenPublication) {
             groupId = "ovh.sad"
             artifactId = "jkromer"
-            version = "0.3"
+            version = "0.4"
             from components.java
         }
     }

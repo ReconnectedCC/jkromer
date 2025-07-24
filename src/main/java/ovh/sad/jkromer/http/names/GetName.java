@@ -4,6 +4,7 @@ import ovh.sad.jkromer.Errors;
 import ovh.sad.jkromer.http.ResponseBodyGeneric;
 import ovh.sad.jkromer.http.HttpEndpoint;
 import ovh.sad.jkromer.http.Result;
+import ovh.sad.jkromer.jKromer;
 import ovh.sad.jkromer.models.Name;
 
 import java.net.URI;
@@ -19,7 +20,7 @@ public class GetName extends HttpEndpoint {
     public static CompletableFuture<Result<GetNameBody>> execute(String name) {
         try {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(endpoint + "/names/" + name))
+                    .uri(URI.create(jKromer.endpoint + "/names/" + name))
                     .GET()
                     .build();
 

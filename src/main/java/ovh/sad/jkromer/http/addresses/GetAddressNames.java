@@ -12,6 +12,7 @@ import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import ovh.sad.jkromer.jKromer;
 import ovh.sad.jkromer.models.Name;
 
 public class GetAddressNames extends HttpEndpoint {
@@ -24,7 +25,7 @@ public class GetAddressNames extends HttpEndpoint {
     public static CompletableFuture<Result<GetAddressNamesBody>> execute(String address, Integer limit, Integer offset) {
         try {
             String encodedAddress = URLEncoder.encode(address, java.nio.charset.StandardCharsets.UTF_8);
-            StringBuilder url = new StringBuilder(endpoint + "/addresses/" + encodedAddress + "/names?");
+            StringBuilder url = new StringBuilder(jKromer.endpoint + "/addresses/" + encodedAddress + "/names?");
             if (limit != null) url.append("limit=").append(Math.min(Math.max(limit, 1), 1000)).append("&");
             if (offset != null) url.append("offset=").append(Math.max(offset, 0)).append("&");
 

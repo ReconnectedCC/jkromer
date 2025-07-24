@@ -4,6 +4,7 @@ import ovh.sad.jkromer.Errors;
 import ovh.sad.jkromer.http.HttpEndpoint;
 import ovh.sad.jkromer.http.ResponseBodyGeneric;
 import ovh.sad.jkromer.http.Result;
+import ovh.sad.jkromer.jKromer;
 
 import java.net.URI;
 import java.net.URLEncoder;
@@ -27,7 +28,7 @@ public class RegisterName extends HttpEndpoint {
     public static CompletableFuture<Result<RegisterNameResponse>> execute(String name, String privatekey) {
         try {
             String encodedName = URLEncoder.encode(name, StandardCharsets.UTF_8);
-            String url = endpoint + "/names/" + encodedName;
+            String url = jKromer.endpoint + "/names/" + encodedName;
 
             String json = gson.toJson(new RegisterNameRequest(privatekey));
 

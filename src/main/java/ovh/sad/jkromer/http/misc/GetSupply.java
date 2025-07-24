@@ -4,6 +4,7 @@ import ovh.sad.jkromer.Errors;
 import ovh.sad.jkromer.http.HttpEndpoint;
 import ovh.sad.jkromer.http.ResponseBodyGeneric;
 import ovh.sad.jkromer.http.Result;
+import ovh.sad.jkromer.jKromer;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
@@ -18,7 +19,7 @@ public class GetSupply extends HttpEndpoint {
     public static CompletableFuture<Result<GetSupplyBody>> execute() {
         try {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(endpoint + "/supply"))
+                    .uri(URI.create(jKromer.endpoint + "/supply"))
                     .GET()
                     .build();
 

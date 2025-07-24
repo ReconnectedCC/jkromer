@@ -5,6 +5,7 @@ import ovh.sad.jkromer.http.HttpEndpoint;
 import ovh.sad.jkromer.http.ResponseBodyGeneric;
 import ovh.sad.jkromer.http.Result;
 import ovh.sad.jkromer.http.internal.GiveMoney;
+import ovh.sad.jkromer.jKromer;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
@@ -34,7 +35,7 @@ public class StartWs extends HttpEndpoint {
             String json = gson.toJson(new StartWsRequest(privatekey));
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(endpoint + "/ws/start"))
+                    .uri(URI.create(jKromer.endpoint + "/ws/start"))
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(json))
                     .build();

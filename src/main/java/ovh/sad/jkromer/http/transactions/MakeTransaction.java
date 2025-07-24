@@ -4,6 +4,7 @@ import ovh.sad.jkromer.Errors;
 import ovh.sad.jkromer.http.HttpEndpoint;
 import ovh.sad.jkromer.http.ResponseBodyGeneric;
 import ovh.sad.jkromer.http.Result;
+import ovh.sad.jkromer.jKromer;
 import ovh.sad.jkromer.models.Transaction;
 
 import java.net.URI;
@@ -30,7 +31,7 @@ public class MakeTransaction extends HttpEndpoint {
             );
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(endpoint + "/transactions/"))
+                    .uri(URI.create(jKromer.endpoint + "/transactions/"))
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(gson.toJson(requestJson)))
                     .build();

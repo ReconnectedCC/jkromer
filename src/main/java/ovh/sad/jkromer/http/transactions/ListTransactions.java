@@ -5,6 +5,7 @@ import ovh.sad.jkromer.Errors;
 import ovh.sad.jkromer.http.HttpEndpoint;
 import ovh.sad.jkromer.http.ResponseBodyGeneric;
 import ovh.sad.jkromer.http.Result;
+import ovh.sad.jkromer.jKromer;
 import ovh.sad.jkromer.models.Name;
 import ovh.sad.jkromer.models.Transaction;
 
@@ -27,7 +28,7 @@ public class ListTransactions extends HttpEndpoint  {
             int useOffset = (offset == null) ? 0 : Math.max(offset, 0);
 
             String url = String.format("%s/transactions?limit=%d&offset=%d",
-                    endpoint,
+                    jKromer.endpoint,
                     useLimit,
                     useOffset
             );

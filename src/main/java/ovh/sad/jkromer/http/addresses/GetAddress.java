@@ -3,6 +3,7 @@ package ovh.sad.jkromer.http.addresses;
 import ovh.sad.jkromer.Errors;
 import ovh.sad.jkromer.http.ResponseBodyGeneric;
 import ovh.sad.jkromer.http.HttpEndpoint;
+import ovh.sad.jkromer.jKromer;
 import ovh.sad.jkromer.models.Address;
 import ovh.sad.jkromer.http.Result;
 
@@ -18,7 +19,7 @@ public class GetAddress extends HttpEndpoint {
 
     public static CompletableFuture<Result<GetAddressBody>> execute(String address, boolean fetchNames) {
         try {
-            String url = endpoint + "/addresses/" + address;
+            String url = jKromer.endpoint + "/addresses/" + address;
             if (fetchNames) url += "?fetchNames=true";
 
             HttpRequest request = HttpRequest.newBuilder()

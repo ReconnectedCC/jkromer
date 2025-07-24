@@ -4,6 +4,7 @@ import ovh.sad.jkromer.Errors;
 import ovh.sad.jkromer.http.HttpEndpoint;
 import ovh.sad.jkromer.http.ResponseBodyGeneric;
 import ovh.sad.jkromer.http.Result;
+import ovh.sad.jkromer.jKromer;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
@@ -30,7 +31,7 @@ public class Login extends HttpEndpoint {
             String json = gson.toJson(new LoginRequest(privatekey));
 
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(endpoint + "/login"))
+                    .uri(URI.create(jKromer.endpoint + "/login"))
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(json))
                     .build();

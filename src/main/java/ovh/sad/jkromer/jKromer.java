@@ -1,7 +1,9 @@
 package ovh.sad.jkromer;
 
 
-public class Kromer {
+public class jKromer {
+    public static String endpoint_raw = "https://kromer.reconnected.cc";
+    public static String endpoint = endpoint_raw + "/api/krist";
     public static void main(String[] args) {
         /*
             Tests.Addresses.ListAddresses();
