@@ -1,19 +1,37 @@
 plugins {
     id 'java'
+    id 'maven-publish'
 }
 
 group = 'ovh.sad'
-version = '1.0-SNAPSHOT'
+version = '0.1'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter'
     implementation 'com.google.code.gson:gson:2.13.1'
+    implementation "org.java-websocket:Java-WebSocket:1.6.0"
 }
 
-test {
-    useJUnitPlatform()
+publishing {
+    repositories {
+        maven {
+            name = "sadovh"
+            url = "https://repo.sad.ovh/releases"
+            credentials(PasswordCredentials)
+            authentication {
+                basic(BasicAuthentication)
+            }
+        }
+    }
+    publications {
+        maven(MavenPublication) {
+            groupId = "ovh.sad"
+            artifactId = "jkromer"
+            version = {version}
+            from components.java
+        }
+    }
 }
