@@ -19,7 +19,7 @@ public class MakeTransaction extends HttpEndpoint {
     }
 
     public static CompletableFuture<Result<MakeTransactionResponse>> execute(
-            String privateKey, String to, long amount, String metadata
+            String privateKey, String to, float amount, String metadata
     ) {
         try {
             var requestJson = Map.of(
