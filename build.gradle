@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+
+group = 'ovh.sad'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'com.google.code.gson:gson:2.13.1'
+}
+
+test {
+    useJUnitPlatform()
+}
