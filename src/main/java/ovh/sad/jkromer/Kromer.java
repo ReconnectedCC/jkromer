@@ -13,6 +13,7 @@ public class Kromer {
             Tests.Misc.GetMotd();
             Tests.Misc.Login();
             Tests.Misc.GetSupply();
+            Tests.Misc.StartWs();
 
             Tests.Internal.CreateWallet();
             Tests.Internal.GiveMoney();

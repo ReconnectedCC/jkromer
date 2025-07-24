@@ -4,6 +4,7 @@ import ovh.sad.jkromer.http.Result;
 import ovh.sad.jkromer.http.addresses.*;
 import ovh.sad.jkromer.http.misc.GetMotd;
 import ovh.sad.jkromer.http.misc.GetSupply;
+import ovh.sad.jkromer.http.misc.StartWs;
 import ovh.sad.jkromer.http.names.*;
 import ovh.sad.jkromer.http.transactions.GetTransaction;
 import ovh.sad.jkromer.http.transactions.ListLatestTransactions;
@@ -69,6 +70,14 @@ public class Tests {
         static void Login() {
             // not hardcoding a privatekey
             System.out.println("A test for Login is not implemented.");
+        }
+        static void StartWs() {
+            var result = StartWs.execute().join();
+            if (result instanceof Result.Ok(StartWs.StartWsResponse value)) {
+                System.out.println("URL: " + value.url);
+            } else if (result instanceof Result.Err(Errors.ErrorResponse error)) {
+                System.out.println("Error: " + error + " param: " + error.parameter());
+            }
         }
         static void GetSupply() {
             var result = GetSupply.execute().join();
