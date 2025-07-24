@@ -30,7 +30,7 @@ publishing {
         maven(MavenPublication) {
             groupId = "ovh.sad"
             artifactId = "jkromer"
-            version = {version}
+            version = "0.1"
             from components.java
         }
     }
