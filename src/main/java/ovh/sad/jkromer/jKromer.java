@@ -2,7 +2,7 @@ package ovh.sad.jkromer;
 
 
 public class jKromer {
-    public static String endpoint_raw = "https://kromer.reconnected.cc";
+    public static String endpoint_raw = "https://kromer.sad.ovh";
     public static String endpoint = endpoint_raw + "/api/krist";
     public static void main(String[] args) {
         /*
@@ -33,6 +33,5 @@ public class jKromer {
             Tests.Transactions.GetTransaction();
             Tests.Transactions.MakeTransaction();
         */
-
     }
 }

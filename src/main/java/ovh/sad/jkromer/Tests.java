@@ -2,6 +2,8 @@ package ovh.sad.jkromer;
 
 import ovh.sad.jkromer.http.Result;
 import ovh.sad.jkromer.http.addresses.*;
+import ovh.sad.jkromer.http.internal.CreateWallet;
+import ovh.sad.jkromer.http.internal.GiveMoney;
 import ovh.sad.jkromer.http.misc.GetMotd;
 import ovh.sad.jkromer.http.misc.GetSupply;
 import ovh.sad.jkromer.http.misc.StartWs;
@@ -10,11 +12,19 @@ import ovh.sad.jkromer.http.transactions.GetTransaction;
 import ovh.sad.jkromer.http.transactions.ListLatestTransactions;
 import ovh.sad.jkromer.http.transactions.ListTransactions;
 
+import java.util.UUID;
+
 public class Tests {
+
+    public static String kromerKey = "..";
+    public static String validAddress = "kmmx7kcr4o";
+    public static String availableName = "cock2";
+    public static String unavailableName = "cock";
+    public static String transactionId = "6";
 
     public static class Addresses {
         static void GetAddress() {
-            Result<GetAddress.GetAddressBody> result = GetAddress.execute("kmmx7kcr4o").join();
+            Result<GetAddress.GetAddressBody> result = GetAddress.execute(validAddress).join();
             if (result instanceof Result.Ok(GetAddress.GetAddressBody value)) {
                 System.out.println("Address: " + value.address.balance);
             } else if (result instanceof Result.Err(Errors.ErrorResponse error)) {
@@ -39,7 +49,7 @@ public class Tests {
             }
         }
         static void GetAddressTransactions() {
-            var result = GetAddressTransactions.execute("kmmx7kcr4o").join();
+            var result = GetAddressTransactions.execute(validAddress).join();
             if (result instanceof Result.Ok(GetAddressTransactions.GetAddressTransactionsBody value)) {
                 System.out.println("From: " + value.transactions.getFirst().from
                         + ", to: " + value.transactions.getFirst().to + ", of " + value.transactions.getFirst().value +"KRO! Wow.");
@@ -48,7 +58,7 @@ public class Tests {
             }
         }
         static void GetAddressNames() {
-            var result = GetAddressNames.execute("kmmx7kcr4o").join();
+            var result = GetAddressNames.execute(validAddress).join();
             if (result instanceof Result.Ok(GetAddressNames.GetAddressNamesBody value)) {
                 System.out.println("Current owner: " + value.names.getFirst().owner
                         + ", Oriignal owner: " + value.names.getFirst().original_owner + ", A record: " + value.names.getFirst().a);
@@ -91,18 +101,28 @@ public class Tests {
 
     public static class Internal {
         static void CreateWallet() {
-            // I'm not hardcoding KromerKey's.
-            System.out.println("A test for CreateWallet is not implemented.");
+            var result = CreateWallet.execute(kromerKey, "hello", UUID.randomUUID().toString()).join();
+            if (result instanceof Result.Ok(CreateWallet.CreateWalletResponse value)) {
+                System.out.println(value.privatekey);
+            } else if (result instanceof Result.Err(Errors.ErrorResponse error)) {
+                System.out.println("Error: " + error + " param: " + error.parameter());
+            }
+
         }
         static void GiveMoney() {
-            // I'm not hardcoding KromerKey's.
-            System.out.println("A test for GiveMoney is not implemented.");
+            var result = GiveMoney.execute(kromerKey, 100, validAddress).join();
+            if (result instanceof Result.Ok(GiveMoney.GiveMoneyResponse value)) {
+                System.out.println(value.private_key + " + 100");
+            } else if (result instanceof Result.Err(Errors.ErrorResponse error)) {
+                System.out.println("Error: " + error + " param: " + error.parameter());
+            }
+
         }
     }
 
     public static class Names {
         static void GetName() {
-            Result<GetName.GetNameBody> result = GetName.execute("cock").join();
+            Result<GetName.GetNameBody> result = GetName.execute(unavailableName).join();
             if (result instanceof Result.Ok(GetName.GetNameBody value)) {
                 System.out.println("Owner: " + value.name.owner);
             } else if (result instanceof Result.Err(Errors.ErrorResponse error)) {
@@ -134,13 +154,13 @@ public class Tests {
             }
         }
         static void GetNameAvailability() {
-            var unavailable = GetNameAvailability.execute("cock").join();
+            var unavailable = GetNameAvailability.execute(unavailableName).join();
             if (unavailable instanceof Result.Ok(GetNameAvailability.GetNameAvailabilityBody value)) {
                 System.out.println("Availability: " + value.available + " (should be false)");
             } else if (unavailable instanceof Result.Err(Errors.ErrorResponse error)) {
                 System.out.println("Error: " + error + " param: " + error.parameter());
             }
-            var available = GetNameAvailability.execute("cock2").join();
+            var available = GetNameAvailability.execute(availableName).join();
             if (available instanceof Result.Ok(GetNameAvailability.GetNameAvailabilityBody value)) {
                 System.out.println("Availability: " + value.available + " (should be true)");
             } else if (available instanceof Result.Err(Errors.ErrorResponse error)) {
@@ -184,7 +204,7 @@ public class Tests {
             }
         }
         static void GetTransaction() {
-            var result = GetTransaction.execute("6").join();
+            var result = GetTransaction.execute(transactionId).join();
             if (result instanceof Result.Ok(GetTransaction.GetTransactionBody value)) {
                 System.out.println("From: " + value.transaction.from
                         + ", to: " + value.transaction.to + ", of " + value.transaction.value +"KRO! Wow. ID: " + value.transaction.id);
