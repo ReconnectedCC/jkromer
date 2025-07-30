@@ -43,18 +43,18 @@ public class RegisterName extends HttpEndpoint {
                         try {
                             RegisterNameResponse body = gson.fromJson(response.body(), RegisterNameResponse.class);
                             if (body.ok == null || !body.ok) {
-                                Errors.ErrorResponse errorResponse = Errors.valueOf(body.error.error).toResponse(body.error.parameter);
+                                Errors.ErrorResponse errorResponse = Errors.valueOf(body.error).toResponse(body.parameter);
                                 return new Result.Err<RegisterNameResponse>(errorResponse);
                             }
                             return new Result.Ok<RegisterNameResponse>(body);
                         } catch (Exception e) {
-                            return (Result<RegisterNameResponse>) new Result.Err<RegisterNameResponse>(Errors.INTERNAL_PROBLEM.toResponse("JSON parse failed: " + e.getMessage()));
+                            return (Result<RegisterNameResponse>) new Result.Err<RegisterNameResponse>(Errors.internal_problem.toResponse("JSON parse failed: " + e.getMessage()));
                         }
                     })
-                    .exceptionally(e -> new Result.Err<RegisterNameResponse>(Errors.INTERNAL_PROBLEM.toResponse("HTTP request failed: " + e.getMessage())));
+                    .exceptionally(e -> new Result.Err<RegisterNameResponse>(Errors.internal_problem.toResponse("HTTP request failed: " + e.getMessage())));
         } catch (Exception e) {
             return CompletableFuture.completedFuture(
-                    new Result.Err<>(Errors.INTERNAL_PROBLEM.toResponse("Failed building request: " + e.getMessage()))
+                    new Result.Err<>(Errors.internal_problem.toResponse("Failed building request: " + e.getMessage()))
             );
         }
     }

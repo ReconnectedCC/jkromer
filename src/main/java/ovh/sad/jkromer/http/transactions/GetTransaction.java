@@ -5,7 +5,6 @@ import ovh.sad.jkromer.http.HttpEndpoint;
 import ovh.sad.jkromer.http.ResponseBodyGeneric;
 import ovh.sad.jkromer.http.Result;
 import ovh.sad.jkromer.jKromer;
-import ovh.sad.jkromer.models.Address;
 import ovh.sad.jkromer.models.Transaction;
 
 import java.net.URI;
@@ -33,18 +32,18 @@ public class GetTransaction extends HttpEndpoint {
                             GetTransactionBody json = gson.fromJson(response.body(), GetTransactionBody.class);
 
                             if (json.ok == null || !json.ok) {
-                                Errors.ErrorResponse errorResponse = Errors.valueOf(json.error.error).toResponse(json.error.parameter);
+                                Errors.ErrorResponse errorResponse = Errors.valueOf(json.error).toResponse(json.parameter);
                                 return new Result.Err<GetTransactionBody>(errorResponse);
                             }
                             return new Result.Ok<GetTransactionBody>(json);
                         } catch (Exception e) {
-                            return (Result<GetTransactionBody>) new Result.Err<GetTransactionBody>(Errors.INTERNAL_PROBLEM.toResponse("Failed to parse JSON: " + e.getMessage()));
+                            return (Result<GetTransactionBody>) new Result.Err<GetTransactionBody>(Errors.internal_problem.toResponse("Failed to parse JSON: " + e.getMessage()));
                         }
                     })
-                    .exceptionally(e -> new Result.Err<>(Errors.INTERNAL_PROBLEM.toResponse("HTTP request failed: " + e.getMessage())));
+                    .exceptionally(e -> new Result.Err<>(Errors.internal_problem.toResponse("HTTP request failed: " + e.getMessage())));
         } catch (Exception e) {
             return CompletableFuture.completedFuture(
-                    new Result.Err<>(Errors.INTERNAL_PROBLEM.toResponse("Failed to build HTTP request: " + e.getMessage()))
+                    new Result.Err<>(Errors.internal_problem.toResponse("Failed to build HTTP request: " + e.getMessage()))
             );
         }
     }

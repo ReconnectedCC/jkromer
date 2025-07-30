@@ -48,18 +48,18 @@ public class UpdateName extends HttpEndpoint {
                         try {
                             UpdateNameResponse body = gson.fromJson(response.body(), UpdateNameResponse.class);
                             if (body.ok == null || !body.ok) {
-                                Errors.ErrorResponse errorResponse = Errors.valueOf(body.error.error).toResponse(body.error.parameter);
+                                Errors.ErrorResponse errorResponse = Errors.valueOf(body.error).toResponse(body.parameter);
                                 return new Result.Err<UpdateNameResponse>(errorResponse);
                             }
                             return new Result.Ok<UpdateNameResponse>(body);
                         } catch (Exception e) {
-                            return (Result<UpdateNameResponse>) new Result.Err<UpdateNameResponse>(Errors.INTERNAL_PROBLEM.toResponse("JSON parse failed: " + e.getMessage()));
+                            return (Result<UpdateNameResponse>) new Result.Err<UpdateNameResponse>(Errors.internal_problem.toResponse("JSON parse failed: " + e.getMessage()));
                         }
                     })
-                    .exceptionally(e -> new Result.Err<UpdateNameResponse>(Errors.INTERNAL_PROBLEM.toResponse("HTTP request failed: " + e.getMessage())));
+                    .exceptionally(e -> new Result.Err<UpdateNameResponse>(Errors.internal_problem.toResponse("HTTP request failed: " + e.getMessage())));
         } catch (Exception e) {
             return CompletableFuture.completedFuture(
-                    new Result.Err<>(Errors.INTERNAL_PROBLEM.toResponse("Failed building request: " + e.getMessage()))
+                    new Result.Err<>(Errors.internal_problem.toResponse("Failed building request: " + e.getMessage()))
             );
         }
     }

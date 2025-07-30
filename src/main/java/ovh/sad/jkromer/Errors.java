@@ -2,13 +2,13 @@ package ovh.sad.jkromer;
 
 
 public enum Errors {
-    INVALID_PARAMETER("invalid_parameter", true),
-    ADDRESS_NOT_FOUND("address_not_found"),
-    NAME_TAKEN("name_taken"),
-    INSUFFICIENT_FUNDS("insufficient_funds"),
-    NOT_NAME_OWNER("not_name_owner"),
-    NAME_NOT_FOUND("name_not_found"),
-    INTERNAL_PROBLEM("internal_error", true);
+    invalid_parameter("invalid_parameter", true),
+    address_not_found("address_not_found"),
+    name_taken("name_taken"),
+    insufficient_funds("insufficient_funds"),
+    not_name_owner("not_name_owner"),
+    name_not_found("name_not_found"),
+    internal_problem("internal_error", true);
 
     private final String errorCode;
     private final boolean acceptsParameter;

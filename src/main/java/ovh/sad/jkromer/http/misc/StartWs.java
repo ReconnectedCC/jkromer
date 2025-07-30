@@ -2,9 +2,7 @@ package ovh.sad.jkromer.http.misc;
 
 import ovh.sad.jkromer.Errors;
 import ovh.sad.jkromer.http.HttpEndpoint;
-import ovh.sad.jkromer.http.ResponseBodyGeneric;
 import ovh.sad.jkromer.http.Result;
-import ovh.sad.jkromer.http.internal.GiveMoney;
 import ovh.sad.jkromer.jKromer;
 
 import java.net.URI;
@@ -44,20 +42,20 @@ public class StartWs extends HttpEndpoint {
                     .thenApply(response -> {
                         try {
                             if (response.statusCode() != 200) {
-                                return new Result.Err<StartWsResponse>(Errors.INTERNAL_PROBLEM.toResponse("Internal API request could not be sent. Status code: " + response.statusCode()));
+                                return new Result.Err<StartWsResponse>(Errors.internal_problem.toResponse("Internal API request could not be sent. Status code: " + response.statusCode()));
                             }
 
                             StartWsResponse resp = gson.fromJson(response.body(), StartWsResponse.class);
 
                             return new Result.Ok<StartWsResponse>(resp);
                         } catch (Exception e) {
-                            return (Result<StartWsResponse>) new Result.Err<StartWsResponse>(Errors.INTERNAL_PROBLEM.toResponse("JSON parse error: " + e.getMessage()));
+                            return (Result<StartWsResponse>) new Result.Err<StartWsResponse>(Errors.internal_problem.toResponse("JSON parse error: " + e.getMessage()));
                         }
                     })
-                    .exceptionally(e -> new Result.Err<StartWsResponse>(Errors.INTERNAL_PROBLEM.toResponse("HTTP error: " + e.getMessage())));
+                    .exceptionally(e -> new Result.Err<StartWsResponse>(Errors.internal_problem.toResponse("HTTP error: " + e.getMessage())));
         } catch (Exception e) {
             return CompletableFuture.completedFuture(
-                    new Result.Err<>(Errors.INTERNAL_PROBLEM.toResponse("Failed to build request: " + e.getMessage()))
+                    new Result.Err<>(Errors.internal_problem.toResponse("Failed to build request: " + e.getMessage()))
             );
         }
     }

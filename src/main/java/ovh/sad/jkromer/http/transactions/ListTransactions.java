@@ -6,7 +6,6 @@ import ovh.sad.jkromer.http.HttpEndpoint;
 import ovh.sad.jkromer.http.ResponseBodyGeneric;
 import ovh.sad.jkromer.http.Result;
 import ovh.sad.jkromer.jKromer;
-import ovh.sad.jkromer.models.Name;
 import ovh.sad.jkromer.models.Transaction;
 
 import java.net.URI;
@@ -40,18 +39,18 @@ public class ListTransactions extends HttpEndpoint  {
                         try {
                             ListTransactionsBody body = gson.fromJson(response.body(), ListTransactionsBody.class);
                             if (body.ok == null || !body.ok) {
-                                Errors.ErrorResponse errorResponse = Errors.valueOf(body.error.error).toResponse(body.error.parameter);
+                                Errors.ErrorResponse errorResponse = Errors.valueOf(body.error).toResponse(body.parameter);
                                 return new Result.Err<ListTransactionsBody>(errorResponse);
                             }
                             return new Result.Ok<ListTransactionsBody>(body);
                         } catch (Exception e) {
-                            return (Result<ListTransactionsBody>) new Result.Err<ListTransactionsBody>(Errors.INTERNAL_PROBLEM.toResponse("JSON parse failed: " + e.getMessage()));
+                            return (Result<ListTransactionsBody>) new Result.Err<ListTransactionsBody>(Errors.internal_problem.toResponse("JSON parse failed: " + e.getMessage()));
                         }
                     })
-                    .exceptionally(e -> new Result.Err<ListTransactionsBody>(Errors.INTERNAL_PROBLEM.toResponse("HTTP request failed: " + e.getMessage())));
+                    .exceptionally(e -> new Result.Err<ListTransactionsBody>(Errors.internal_problem.toResponse("HTTP request failed: " + e.getMessage())));
         } catch (Exception e) {
             return CompletableFuture.completedFuture(
-                    new Result.Err<>(Errors.INTERNAL_PROBLEM.toResponse("Failed building request: " + e.getMessage()))
+                    new Result.Err<>(Errors.internal_problem.toResponse("Failed building request: " + e.getMessage()))
             );
         }
     }

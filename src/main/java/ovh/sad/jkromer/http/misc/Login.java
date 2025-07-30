@@ -41,18 +41,18 @@ public class Login extends HttpEndpoint {
                         try {
                             LoginResponse resp = gson.fromJson(response.body(), LoginResponse.class);
                             if (resp.ok == null || !resp.ok) {
-                                Errors.ErrorResponse errorResponse = Errors.valueOf(resp.error.error).toResponse(resp.error.parameter);
+                                Errors.ErrorResponse errorResponse = Errors.valueOf(resp.error).toResponse(resp.parameter);
                                 return new Result.Err<LoginResponse>(errorResponse);
                             }
                             return new Result.Ok<LoginResponse>(resp);
                         } catch (Exception e) {
-                            return (Result<LoginResponse>) new Result.Err<LoginResponse>(Errors.INTERNAL_PROBLEM.toResponse("JSON parse error: " + e.getMessage()));
+                            return (Result<LoginResponse>) new Result.Err<LoginResponse>(Errors.internal_problem.toResponse("JSON parse error: " + e.getMessage()));
                         }
                     })
-                    .exceptionally(e -> new Result.Err<LoginResponse>(Errors.INTERNAL_PROBLEM.toResponse("HTTP error: " + e.getMessage())));
+                    .exceptionally(e -> new Result.Err<LoginResponse>(Errors.internal_problem.toResponse("HTTP error: " + e.getMessage())));
         } catch (Exception e) {
             return CompletableFuture.completedFuture(
-                    new Result.Err<>(Errors.INTERNAL_PROBLEM.toResponse("Failed to build request: " + e.getMessage()))
+                    new Result.Err<>(Errors.internal_problem.toResponse("Failed to build request: " + e.getMessage()))
             );
         }
     }

@@ -39,21 +39,23 @@ public class MakeTransaction extends HttpEndpoint {
             return http.sendAsync(request, HttpResponse.BodyHandlers.ofString())
                     .thenApply(response -> {
                         try {
-                            MakeTransactionResponse json = gson.fromJson(response.body(), MakeTransactionResponse.class);
+                            String data = response.body();
+                            System.out.println(data);
+                            MakeTransactionResponse json = gson.fromJson(data, MakeTransactionResponse.class);
 
                             if (json.ok == null || !json.ok) {
-                                Errors.ErrorResponse errorResponse = Errors.valueOf(json.error.error).toResponse(json.error.parameter);
+                                Errors.ErrorResponse errorResponse = Errors.valueOf(json.error).toResponse(json.parameter);
                                 return new Result.Err<MakeTransactionResponse>(errorResponse);
                             }
                             return new Result.Ok<MakeTransactionResponse>(json);
                         } catch (Exception e) {
-                            return (Result<MakeTransactionResponse>) new Result.Err<MakeTransactionResponse>(Errors.INTERNAL_PROBLEM.toResponse("Failed to parse JSON: " + e.getMessage()));
+                            return (Result<MakeTransactionResponse>) new Result.Err<MakeTransactionResponse>(Errors.internal_problem.toResponse("Failed to parse JSON: " + e.getMessage()));
                         }
                     })
-                    .exceptionally(e -> new Result.Err<>(Errors.INTERNAL_PROBLEM.toResponse("HTTP request failed: " + e.getMessage())));
+                    .exceptionally(e -> new Result.Err<>(Errors.internal_problem.toResponse("HTTP request failed: " + e.getMessage())));
         } catch (Exception e) {
             return CompletableFuture.completedFuture(
-                    new Result.Err<>(Errors.INTERNAL_PROBLEM.toResponse("Failed to build HTTP request: " + e.getMessage()))
+                    new Result.Err<>(Errors.internal_problem.toResponse("Failed to build HTTP request: " + e.getMessage()))
             );
         }
     }

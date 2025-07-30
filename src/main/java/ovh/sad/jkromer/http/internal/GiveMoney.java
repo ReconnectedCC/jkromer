@@ -48,20 +48,20 @@ public class GiveMoney extends HttpEndpoint {
                     .thenApply(response -> {
                         try {
                             if (response.statusCode() != 200 ) {
-                                return new Result.Err<GiveMoneyResponse>(Errors.INTERNAL_PROBLEM.toResponse("Internal API request could not be sent. Status code: " + response.statusCode()));
+                                return new Result.Err<GiveMoneyResponse>(Errors.internal_problem.toResponse("Internal API request could not be sent. Status code: " + response.statusCode()));
                             }
 
                             GiveMoneyResponse resp = gson.fromJson(response.body(), GiveMoneyResponse.class);
 
                             return new Result.Ok<GiveMoneyResponse>(resp);
                         } catch (Exception e) {
-                            return (Result<GiveMoneyResponse>) new Result.Err<GiveMoneyResponse>(Errors.INTERNAL_PROBLEM.toResponse("JSON parse error: " + e.getMessage()));
+                            return (Result<GiveMoneyResponse>) new Result.Err<GiveMoneyResponse>(Errors.internal_problem.toResponse("JSON parse error: " + e.getMessage()));
                         }
                     })
-                    .exceptionally(e -> new Result.Err<GiveMoneyResponse>(Errors.INTERNAL_PROBLEM.toResponse("HTTP error: " + e.getMessage())));
+                    .exceptionally(e -> new Result.Err<GiveMoneyResponse>(Errors.internal_problem.toResponse("HTTP error: " + e.getMessage())));
         } catch (Exception e) {
             return CompletableFuture.completedFuture(
-                    new Result.Err<>(Errors.INTERNAL_PROBLEM.toResponse("Failed to build request: " + e.getMessage()))
+                    new Result.Err<>(Errors.internal_problem.toResponse("Failed to build request: " + e.getMessage()))
             );
         }
     }

@@ -8,7 +8,6 @@ import ovh.sad.jkromer.jKromer;
 import java.net.URI;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Date;
 import java.util.concurrent.CompletableFuture;
 
 public class CreateWallet extends HttpEndpoint {
@@ -42,20 +41,20 @@ public class CreateWallet extends HttpEndpoint {
                     .thenApply(response -> {
                         try {
                             if (response.statusCode() != 200 ) {
-                                return new Result.Err<CreateWalletResponse>(Errors.INTERNAL_PROBLEM.toResponse("Internal API request could not be sent. Status code: " + response.statusCode()));
+                                return new Result.Err<CreateWalletResponse>(Errors.internal_problem.toResponse("Internal API request could not be sent. Status code: " + response.statusCode()));
                             }
 
                             CreateWalletResponse resp = gson.fromJson(response.body(), CreateWalletResponse.class);
 
                             return new Result.Ok<CreateWalletResponse>(resp);
                         } catch (Exception e) {
-                            return (Result<CreateWalletResponse>) new Result.Err<CreateWalletResponse>(Errors.INTERNAL_PROBLEM.toResponse("JSON parse error: " + e.getMessage()));
+                            return (Result<CreateWalletResponse>) new Result.Err<CreateWalletResponse>(Errors.internal_problem.toResponse("JSON parse error: " + e.getMessage()));
                         }
                     })
-                    .exceptionally(e -> new Result.Err<CreateWalletResponse>(Errors.INTERNAL_PROBLEM.toResponse("HTTP error: " + e.getMessage())));
+                    .exceptionally(e -> new Result.Err<CreateWalletResponse>(Errors.internal_problem.toResponse("HTTP error: " + e.getMessage())));
         } catch (Exception e) {
             return CompletableFuture.completedFuture(
-                    new Result.Err<>(Errors.INTERNAL_PROBLEM.toResponse("Failed to build request: " + e.getMessage()))
+                    new Result.Err<>(Errors.internal_problem.toResponse("Failed to build request: " + e.getMessage()))
             );
         }
     }

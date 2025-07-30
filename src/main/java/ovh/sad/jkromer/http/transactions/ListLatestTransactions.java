@@ -39,18 +39,18 @@ public class ListLatestTransactions extends HttpEndpoint  {
                         try {
                             ListLatestTransactionsBody body = gson.fromJson(response.body(), ListLatestTransactionsBody.class);
                             if (body.ok == null || !body.ok) {
-                                Errors.ErrorResponse errorResponse = Errors.valueOf(body.error.error).toResponse(body.error.parameter);
+                                Errors.ErrorResponse errorResponse = Errors.valueOf(body.error).toResponse(body.parameter);
                                 return new Result.Err<ListLatestTransactionsBody>(errorResponse);
                             }
                             return new Result.Ok<ListLatestTransactionsBody>(body);
                         } catch (Exception e) {
-                            return (Result<ListLatestTransactionsBody>) new Result.Err<ListLatestTransactionsBody>(Errors.INTERNAL_PROBLEM.toResponse("JSON parse failed: " + e.getMessage()));
+                            return (Result<ListLatestTransactionsBody>) new Result.Err<ListLatestTransactionsBody>(Errors.internal_problem.toResponse("JSON parse failed: " + e.getMessage()));
                         }
                     })
-                    .exceptionally(e -> new Result.Err<ListLatestTransactionsBody>(Errors.INTERNAL_PROBLEM.toResponse("HTTP request failed: " + e.getMessage())));
+                    .exceptionally(e -> new Result.Err<ListLatestTransactionsBody>(Errors.internal_problem.toResponse("HTTP request failed: " + e.getMessage())));
         } catch (Exception e) {
             return CompletableFuture.completedFuture(
-                    new Result.Err<>(Errors.INTERNAL_PROBLEM.toResponse("Failed building request: " + e.getMessage()))
+                    new Result.Err<>(Errors.internal_problem.toResponse("Failed building request: " + e.getMessage()))
             );
         }
     }

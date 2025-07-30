@@ -46,19 +46,19 @@ public class GetAddressTransactions extends HttpEndpoint  {
                             GetAddressTransactionsBody resp = gson.fromJson(response.body(), GetAddressTransactionsBody.class);
                             System.out.println(resp.ok);
                             if (resp.ok == null || !resp.ok) {
-                                Errors.ErrorResponse errorResponse = Errors.valueOf(resp.error.error).toResponse(resp.error.parameter);
+                                Errors.ErrorResponse errorResponse = Errors.valueOf(resp.error).toResponse(resp.parameter);
                                 return new Result.Err<GetAddressTransactionsBody>(errorResponse);
                             }
                             return new Result.Ok<GetAddressTransactionsBody>(resp);
                         } catch (Exception e) {
-                            return (Result<GetAddressTransactionsBody>) new Result.Err<GetAddressTransactionsBody>(Errors.INTERNAL_PROBLEM.toResponse("JSON parse error: " + e.getMessage()));
+                            return (Result<GetAddressTransactionsBody>) new Result.Err<GetAddressTransactionsBody>(Errors.internal_problem.toResponse("JSON parse error: " + e.getMessage()));
                         }
                     })
-                    .exceptionally(e -> new Result.Err<GetAddressTransactionsBody>(Errors.INTERNAL_PROBLEM.toResponse("HTTP error: " + e.getMessage())));
+                    .exceptionally(e -> new Result.Err<GetAddressTransactionsBody>(Errors.internal_problem.toResponse("HTTP error: " + e.getMessage())));
 
         } catch (Exception e) {
             return CompletableFuture.completedFuture(
-                    new Result.Err<>(Errors.INTERNAL_PROBLEM.toResponse("Failed to build request: " + e.getMessage()))
+                    new Result.Err<>(Errors.internal_problem.toResponse("Failed to build request: " + e.getMessage()))
             );
         }
     }

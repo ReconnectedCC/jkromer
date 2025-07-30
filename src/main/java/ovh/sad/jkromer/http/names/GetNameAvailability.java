@@ -30,18 +30,18 @@ public class GetNameAvailability extends HttpEndpoint {
                         try {
                             GetNameAvailabilityBody resp = gson.fromJson(response.body(), GetNameAvailabilityBody.class);
                             if (resp.ok == null || !resp.ok) {
-                                Errors.ErrorResponse errorResponse = Errors.valueOf(resp.error.error).toResponse(resp.error.parameter);
+                                Errors.ErrorResponse errorResponse = Errors.valueOf(resp.error).toResponse(resp.parameter);
                                 return new Result.Err<GetNameAvailabilityBody>(errorResponse);
                             }
                             return new Result.Ok<GetNameAvailabilityBody>(resp);
                         } catch (Exception e) {
-                            return (Result<GetNameAvailabilityBody>) new Result.Err<GetNameAvailabilityBody>(Errors.INTERNAL_PROBLEM.toResponse("JSON parse error: " + e.getMessage()));
+                            return (Result<GetNameAvailabilityBody>) new Result.Err<GetNameAvailabilityBody>(Errors.internal_problem.toResponse("JSON parse error: " + e.getMessage()));
                         }
                     })
-                    .exceptionally(e -> new Result.Err<GetNameAvailabilityBody>(Errors.INTERNAL_PROBLEM.toResponse("HTTP error: " + e.getMessage())));
+                    .exceptionally(e -> new Result.Err<GetNameAvailabilityBody>(Errors.internal_problem.toResponse("HTTP error: " + e.getMessage())));
         } catch (Exception e) {
             return CompletableFuture.completedFuture(
-                    new Result.Err<>(Errors.INTERNAL_PROBLEM.toResponse("Failed to build request: " + e.getMessage()))
+                    new Result.Err<>(Errors.internal_problem.toResponse("Failed to build request: " + e.getMessage()))
             );
         }
     }
