@@ -30,15 +30,21 @@ public class StartWs extends HttpEndpoint {
 
     public static CompletableFuture<Result<StartWsResponse>> execute(String privatekey) {
         try {
-            String json = gson.toJson(new StartWsRequest(privatekey));
+            HttpRequest.Builder requestBuilder = HttpRequest.newBuilder()
+                    .uri(URI.create(jKromer.endpoint + "/ws/start"));
 
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(jKromer.endpoint + "/ws/start"))
-                    .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(json))
-                    .build();
+            if(privatekey != null) {
+                String json = gson.toJson(new StartWsRequest(privatekey));
 
-            return http.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+                requestBuilder = requestBuilder
+                        .POST(HttpRequest.BodyPublishers.ofString(json))
+                        .header("Content-Type", "application/json");
+
+            } else {
+                requestBuilder = requestBuilder.POST(HttpRequest.BodyPublishers.noBody());
+            }
+
+            return http.sendAsync(requestBuilder.build(), HttpResponse.BodyHandlers.ofString())
                     .thenApply(response -> {
                         try {
                             if (response.statusCode() != 200) {
