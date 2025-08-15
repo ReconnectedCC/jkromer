@@ -11,6 +11,8 @@ import ovh.sad.jkromer.http.names.*;
 import ovh.sad.jkromer.http.transactions.GetTransaction;
 import ovh.sad.jkromer.http.transactions.ListLatestTransactions;
 import ovh.sad.jkromer.http.transactions.ListTransactions;
+import ovh.sad.jkromer.http.v1.GetPlayerByName;
+import ovh.sad.jkromer.http.v1.GetPlayerByUuid;
 
 import java.util.UUID;
 
@@ -178,7 +180,26 @@ public class Tests {
             System.out.println("A test for UpdateName is not implemented.");
         }
     }
+    public static class V1 {
+        static void GetPlayerByName() {
+            var result = GetPlayerByName.execute("hartbreix").join();
+            if (result instanceof Result.Ok(GetPlayerByName.GetPlayerByResponse value)) {
+                System.out.println("address: " + value.data.get(0).address + ", balance: " + value.data.get(0).balance);
+            } else if (result instanceof Result.Err(Errors.ErrorResponse error)) {
+                System.out.println("Error: " + error + " param: " + error.parameter());
+            }
+        }
 
+        static void GetPlayerByUuid() {
+            var result = GetPlayerByUuid.execute("21f7143a-45cd-4995-b1e3-6c3c8602ef7c").join();
+            if (result instanceof Result.Ok(GetPlayerByName.GetPlayerByResponse value)) {
+                System.out.println("address: " + value.data.get(0).address + ", balance: " + value.data.get(0).balance);
+            } else if (result instanceof Result.Err(Errors.ErrorResponse error)) {
+                System.out.println("Error: " + error + " param: " + error.parameter());
+            }
+        }
+
+    }
     public static class Transactions {
         static void ListTransaction() {
             var result = ListTransactions.execute().join();

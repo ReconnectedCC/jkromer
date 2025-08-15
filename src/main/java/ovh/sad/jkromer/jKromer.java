@@ -31,6 +31,11 @@ public class jKromer {
             Tests.Transactions.ListTransaction();
             Tests.Transactions.ListLatestTransactions();
             Tests.Transactions.GetTransaction();
+
+            Tests.V1.GetPlayerByName();
+            Tests.V1.GetPlayerByUuid();
+
             */
+
     }
 }
