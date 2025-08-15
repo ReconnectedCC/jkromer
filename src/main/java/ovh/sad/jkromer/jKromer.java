@@ -34,8 +34,8 @@ public class jKromer {
 
             Tests.V1.GetPlayerByName();
             Tests.V1.GetPlayerByUuid();
-
-            */
+         */
+        Tests.Misc.GetMotd();
 
     }
 }

@@ -15,6 +15,17 @@ dependencies {
     implementation "org.java-websocket:Java-WebSocket:1.6.0"
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    sourceCompatibility = '17'
+    targetCompatibility = '17'
+}
+
 publishing {
     repositories {
         maven {
