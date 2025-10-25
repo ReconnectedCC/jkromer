@@ -1,12 +1,12 @@
 package ovh.sad.jkromer.models;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Address {
-
     public String address;
-    public float balance;
-    public float totalin;
-    public float totalout;
+    public BigDecimal balance;
+    public BigDecimal totalin;
+    public BigDecimal totalout;
     public Date firstseen;
 }

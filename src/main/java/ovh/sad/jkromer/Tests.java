@@ -14,6 +14,7 @@ import ovh.sad.jkromer.http.transactions.ListTransactions;
 import ovh.sad.jkromer.http.v1.GetPlayerByName;
 import ovh.sad.jkromer.http.v1.GetPlayerByUuid;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 public class Tests {
@@ -144,7 +145,7 @@ public class Tests {
         }
 
         static void GiveMoney() {
-            Result<GiveMoney.GiveMoneyResponse> result = GiveMoney.execute(kromerKey, 100, validAddress).join();
+            Result<GiveMoney.GiveMoneyResponse> result = GiveMoney.execute(kromerKey, BigDecimal.valueOf(100), validAddress).join();
             if (result instanceof Result.Ok) {
                 Result.Ok<GiveMoney.GiveMoneyResponse> ok = (Result.Ok<GiveMoney.GiveMoneyResponse>) result;
                 GiveMoney.GiveMoneyResponse value = ok.value();

@@ -1,5 +1,6 @@
 package ovh.sad.jkromer.models;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Transaction {
@@ -7,7 +8,7 @@ public class Transaction {
     public int id;
     public String from;
     public String to;
-    public float value;
+    public BigDecimal value;
     public Date time;
     public String name;
     public String metadata;
@@ -20,7 +21,7 @@ public class Transaction {
             int id,
             String from,
             String to,
-            float value,
+            BigDecimal value,
             Date time,
             String name,
             String metadata,

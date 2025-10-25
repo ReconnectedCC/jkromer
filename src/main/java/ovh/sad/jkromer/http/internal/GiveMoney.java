@@ -5,6 +5,7 @@ import ovh.sad.jkromer.http.HttpEndpoint;
 import ovh.sad.jkromer.http.Result;
 import ovh.sad.jkromer.jKromer;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -13,10 +14,10 @@ import java.util.concurrent.CompletableFuture;
 
 public class GiveMoney extends HttpEndpoint {
     private static class GiveMoneyRequest {
-        public float amount;
+        public BigDecimal amount;
         public String address;
 
-        public GiveMoneyRequest(float amount, String address) {
+        public GiveMoneyRequest(BigDecimal amount, String address) {
             this.address = address;
             this.amount = amount;
         }
@@ -24,16 +25,16 @@ public class GiveMoney extends HttpEndpoint {
 
     public static class GiveMoneyResponse {
         public String address;
-        public double balance;
+        public BigDecimal balance;
         public Date created_at;
         public int id;
         public boolean locked;
         public String private_key;
-        public double total_in;
-        public double total_out;
+        public BigDecimal total_in;
+        public BigDecimal total_out;
     }
 
-    public static CompletableFuture<Result<GiveMoneyResponse>> execute(String kromerKey, float amount, String address) {
+    public static CompletableFuture<Result<GiveMoneyResponse>> execute(String kromerKey, BigDecimal amount, String address) {
         try {
             String json = gson.toJson(new GiveMoneyRequest(amount, address));
 

@@ -6,6 +6,7 @@ import ovh.sad.jkromer.http.ResponseBodyGeneric;
 import ovh.sad.jkromer.http.Result;
 import ovh.sad.jkromer.jKromer;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -13,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class GetSupply extends HttpEndpoint {
     public static class GetSupplyBody extends ResponseBodyGeneric {
-        public Float money_supply;
+        public BigDecimal money_supply;
     }
 
     public static CompletableFuture<Result<GetSupplyBody>> execute() {

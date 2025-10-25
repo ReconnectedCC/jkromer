@@ -7,6 +7,7 @@ import ovh.sad.jkromer.http.Result;
 import ovh.sad.jkromer.jKromer;
 import ovh.sad.jkromer.models.Transaction;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -20,7 +21,7 @@ public class MakeTransaction extends HttpEndpoint {
     }
 
     public static CompletableFuture<Result<MakeTransactionResponse>> execute(
-            String privateKey, String to, float amount, String metadata
+            String privateKey, String to, BigDecimal amount, String metadata
     ) {
         try {
             var requestJson = Map.of(
