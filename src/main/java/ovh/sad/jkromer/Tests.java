@@ -95,7 +95,7 @@ public class Tests {
             if (result instanceof Result.Ok) {
                 Result.Ok<GetMotd.GetMotdBody> ok = (Result.Ok<GetMotd.GetMotdBody>) result;
                 GetMotd.GetMotdBody value = ok.value();
-                System.out.println("Version " + value.motdPackage.version + " of " + value.motdPackage.name + " downloadable at " + value.motdPackage.repository + ".");
+                System.out.println("Version " + value.motdPackage.git_hash + " of " + value.motdPackage.name + " downloadable at " + value.motdPackage.repository + ".");
             } else if (result instanceof Result.Err<?>) {
                 Result.Err<GetMotd.GetMotdBody> err = (Result.Err<GetMotd.GetMotdBody>) result;
                 System.out.println("Error: " + err.error() + " param: " + err.error().parameter());
@@ -149,7 +149,7 @@ public class Tests {
             if (result instanceof Result.Ok) {
                 Result.Ok<GiveMoney.GiveMoneyResponse> ok = (Result.Ok<GiveMoney.GiveMoneyResponse>) result;
                 GiveMoney.GiveMoneyResponse value = ok.value();
-                System.out.println(value.private_key + " + 100");
+                System.out.println("+100 to " + value.wallet.private_key + ", balance now: " + value.wallet.balance);
             } else if (result instanceof Result.Err<?>) {
                 Result.Err<GiveMoney.GiveMoneyResponse> err = (Result.Err<GiveMoney.GiveMoneyResponse>) result;
                 System.out.println("Error: " + err.error() + " param: " + err.error().parameter());

@@ -27,7 +27,6 @@ public class GetMotd extends HttpEndpoint {
         }
 
         public static class Currency {
-
             public String address_prefix;
             public String name_suffix;
             public String currency_name;
@@ -35,12 +34,12 @@ public class GetMotd extends HttpEndpoint {
         }
 
         public static class Package {
-
             public String name;
             public String version;
             public String author;
             public String licence;
             public String repository;
+            public String git_hash;
         }
 
         public String server_time;

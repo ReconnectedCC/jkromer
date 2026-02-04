@@ -23,7 +23,7 @@ public class GiveMoney extends HttpEndpoint {
         }
     }
 
-    public static class GiveMoneyResponse {
+    public static class Wallet {
         public String address;
         public BigDecimal balance;
         public Date created_at;
@@ -32,6 +32,10 @@ public class GiveMoney extends HttpEndpoint {
         public String private_key;
         public BigDecimal total_in;
         public BigDecimal total_out;
+    }
+
+    public static class GiveMoneyResponse {
+        public Wallet wallet;
     }
 
     public static CompletableFuture<Result<GiveMoneyResponse>> execute(String kromerKey, BigDecimal amount, String address) {
