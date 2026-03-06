@@ -41,7 +41,6 @@ public class MakeTransaction extends HttpEndpoint {
                     .thenApply(response -> {
                         try {
                             String data = response.body();
-                            System.out.println(data);
                             MakeTransactionResponse json = gson.fromJson(data, MakeTransactionResponse.class);
 
                             if (json.ok == null || !json.ok) {

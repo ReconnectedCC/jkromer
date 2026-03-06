@@ -44,7 +44,6 @@ public class GetAddressTransactions extends HttpEndpoint  {
                     .thenApply(response -> {
                         try {
                             GetAddressTransactionsBody resp = gson.fromJson(response.body(), GetAddressTransactionsBody.class);
-                            System.out.println(resp.ok);
                             if (resp.ok == null || !resp.ok) {
                                 Errors.ErrorResponse errorResponse = Errors.valueOf(resp.error).toResponse(resp.parameter);
                                 return new Result.Err<GetAddressTransactionsBody>(errorResponse);

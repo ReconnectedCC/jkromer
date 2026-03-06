@@ -33,7 +33,6 @@ public class GetPlayerByName extends HttpEndpoint {
     }
 
     public static CompletableFuture<Result<GetPlayerByResponse>> execute(String name) {
-        System.out.println(jKromer.endpoint_raw + "/api/v1/wallet/by-name/" + name);
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(jKromer.endpoint_raw + "/api/v1/wallet/by-name/" + name))
@@ -44,7 +43,6 @@ public class GetPlayerByName extends HttpEndpoint {
                     .thenApply(response -> {
                         try {
                             String a = response.body();
-                            System.out.println(a);
 
                             GetPlayerByResponse json = gson.fromJson(a, GetPlayerByResponse.class);
                             if (json.error != null) {
