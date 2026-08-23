@@ -16,19 +16,19 @@ dependencies {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 tasks.withType(JavaCompile).configureEach {
-    options.release = 17
+    options.release = 21
 }
 
 publishing {
     repositories {
         maven {
-            name = "sadovh"
-            url = "https://repo.sad.ovh/releases"
+            name = "ReconnectedCC"
+            url = "https://maven.reconnected.cc/releases"
             credentials(PasswordCredentials)
             authentication {
                 basic(BasicAuthentication)
