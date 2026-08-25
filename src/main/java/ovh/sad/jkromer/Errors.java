@@ -8,7 +8,8 @@ public enum Errors {
     insufficient_funds("insufficient_funds"),
     not_name_owner("not_name_owner"),
     name_not_found("name_not_found"),
-    internal_problem("internal_error", true);
+    internal_problem("internal_error", true),
+    same_wallet_transfer("same_wallet_transfer");
 
     private final String errorCode;
     private final boolean acceptsParameter;
